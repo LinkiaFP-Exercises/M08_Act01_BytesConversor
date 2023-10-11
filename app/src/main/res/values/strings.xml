@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Conversor de Bytes</string>
+    <string name="title_units">Seleccione las Unidades</string>
+    <string name="enter_value">Valor a Convertir</string>
+    <string name="title_value">Valor Convertido</string>
+    <string name="button_convert">Convertir</string>
+    <string name="button_invert">⇄</string>
+    <string name="copyright">Creado por</string>
+    <string name="description_image">Fauno Guazina : Logo</string>
+</resources>
+
+    <!---
+    <string name="variable">valor</string>
+    -->
