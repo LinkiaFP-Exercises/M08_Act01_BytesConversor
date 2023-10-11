@@ -10,14 +10,27 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Spinner spinnerUnitFrom, spinnerUnitTo;
-    private EditText editTextNumber;
-    private TextView viewTextResult;
-    private Button buttonConvert, buttonInvert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        connectVariableWithElements();
     }
+
+    private void connectVariableWithElements() {
+        spinnerUnitFrom = findViewById(R.id.spinnerUnitFrom);
+        spinnerUnitTo = findViewById(R.id.spinnerUnitTo);
+        editTextNumber = findViewById(R.id.editTextNumber);
+        viewTextResult = findViewById(R.id.viewTextResult);
+        buttonConvert = findViewById(R.id.buttonConvert);
+        buttonInvert = findViewById(R.id.buttonInvert);
+    }
+
+    private Spinner spinnerUnitFrom, spinnerUnitTo;
+    private EditText editTextNumber;
+    private TextView viewTextResult;
+    private Button buttonConvert, buttonInvert;
+    private int numberUnitFrom, getNumberUnitTo;
+
 }
