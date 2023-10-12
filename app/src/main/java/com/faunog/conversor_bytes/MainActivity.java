@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -68,7 +70,25 @@ public class MainActivity extends AppCompatActivity {
                 : valueToConvert * conversionFactors[numberUnitFrom]
                 / conversionFactors[numberUnitTo];
 
-        viewTextResult.setText(String.valueOf(valueConverted));
+        viewTextResult.setText(scientificNotationFormat(valueConverted));
+    }
+
+    private static String scientificNotationFormat(Double valueConverted) {
+        return (hasMoreTwoDecimals(valueConverted))
+                ? new DecimalFormat("0.##E0").format(valueConverted)
+                : Double.toString(valueConverted);
+    }
+    
+    private static boolean hasMoreTwoDecimals(double numero) {
+        String numeroStr = Double.toString(numero);
+        int puntoIndex = numeroStr.indexOf(".");
+
+        if (puntoIndex == -1) {
+            return false; // No tiene decimales
+        }
+
+        int decimales = numeroStr.length() - puntoIndex - 1;
+        return decimales > 2;
     }
 
     private void invertMetrics() {
