@@ -18,8 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         connectVariableWithElements();
         fillTheSpinnersWithMetrics();
-        buttonConvert.setOnClickListener((v)
-                -> doTheMagicConversion(editTextNumber.getText().toString()));
+        buttonConvert.setOnClickListener((v) -> doTheMagicConversion());
     }
 
     private void connectVariableWithElements() {
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         spinnerUnitTo.setAdapter(unitsNames_arrayAdapter);
     }
 
-    private void doTheMagicConversion(String valueFromUser) {
+    private void doTheMagicConversion() {
         final double[] conversionFactors = {1.0, // Bytes to Bytes
                 Math.pow(2, 10), // Kilobytes to Bytes
                 Math.pow(2, 20), // Megabytes to Bytes
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 Math.pow(2, 80), // Brontobytes to Bytes
                 Math.pow(2, 90)  // Geobytes to Bytes
         };
-
+        final String valueFromUser = editTextNumber.getText().toString();
         final int numberUnitFrom = spinnerUnitFrom.getSelectedItemPosition();
         final int numberUnitTo = spinnerUnitTo.getSelectedItemPosition();
 
