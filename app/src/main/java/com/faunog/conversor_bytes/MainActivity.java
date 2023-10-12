@@ -18,8 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         connectVariableWithElements();
         fillTheSpinnersWithMetrics();
-        buttonConvert.setOnClickListener((v) -> doTheMagicConversion());
-        buttonInvert.setOnClickListener((v) -> invertMetrics());
+        applyListenersToButtons();
     }
 
     private void connectVariableWithElements() {
@@ -40,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
         spinnerUnitFrom.setAdapter(unitsNames_arrayAdapter);
         spinnerUnitTo.setAdapter(unitsNames_arrayAdapter);
+    }
+
+    private void applyListenersToButtons() {
+        buttonConvert.setOnClickListener((v) -> doTheMagicConversion());
+        buttonInvert.setOnClickListener((v) -> invertMetrics());
     }
 
     private void doTheMagicConversion() {
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         viewTextResult.setText(String.valueOf(valueConverted));
     }
 
-    private void invertMetrics(){
+    private void invertMetrics() {
         final int positionSpinnerUnitFrom = spinnerUnitFrom.getSelectedItemPosition();
         spinnerUnitFrom.setSelection(spinnerUnitTo.getSelectedItemPosition());
         spinnerUnitTo.setSelection(positionSpinnerUnitFrom);
