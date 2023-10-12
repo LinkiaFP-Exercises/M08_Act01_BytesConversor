@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         connectVariableWithElements();
         fillTheSpinnersWithMetrics();
+        buttonConvert.setOnClickListener((v)
+                -> doTheMagicConversion(editTextNumber.getText().toString()));
     }
 
     private void connectVariableWithElements() {
@@ -40,10 +42,35 @@ public class MainActivity extends AppCompatActivity {
         spinnerUnitTo.setAdapter(unitsNames_arrayAdapter);
     }
 
+    private void doTheMagicConversion(String valueFromUser) {
+        final double[] conversionFactors = {1.0, // Bytes to Bytes
+                Math.pow(2, 10), // Kilobytes to Bytes
+                Math.pow(2, 20), // Megabytes to Bytes
+                Math.pow(2, 30), // Terabytes to Bytes
+                Math.pow(2, 40), // Petabytes to Bytes
+                Math.pow(2, 50), // Exabytes to Bytes
+                Math.pow(2, 60), // Zettabytes to Bytes
+                Math.pow(2, 70), // Yottabytes to Bytes
+                Math.pow(2, 80), // Brontobytes to Bytes
+                Math.pow(2, 90)  // Geobytes to Bytes
+        };
+
+        final int numberUnitFrom = spinnerUnitFrom.getSelectedItemPosition();
+        final int numberUnitTo = spinnerUnitTo.getSelectedItemPosition();
+
+        final double valueToConvert = Double.parseDouble(valueFromUser);
+
+        final double valueConverted = (numberUnitFrom == numberUnitTo) ? valueToConvert
+                : valueToConvert * conversionFactors[numberUnitFrom]
+                / conversionFactors[numberUnitTo];
+
+        viewTextResult.setText(String.valueOf(valueConverted));
+    }
+
+
     private Spinner spinnerUnitFrom, spinnerUnitTo;
     private EditText editTextNumber;
     private TextView viewTextResult;
     private Button buttonConvert, buttonInvert;
-    private int numberUnitFrom, getNumberUnitTo;
 
 }
