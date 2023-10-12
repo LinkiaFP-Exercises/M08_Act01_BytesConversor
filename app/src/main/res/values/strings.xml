@@ -7,6 +7,11 @@
     <string name="button_invert">⇄</string>
     <string name="copyright">Creado por</string>
     <string name="description_image">Fauno Guazina : Logo</string>
+    <string name="insert_value_to_convert">inserte valor a convertir</string>
+    <string name="insert_here_hint">inserte aqui</string>
+    <string name="title_unit_from">DE:</string>
+    <string name="title_unit_to">PARA:</string>
+    <string name="image_description">Fauno Guazina Logo</string>
 </resources>
 
     <!---
