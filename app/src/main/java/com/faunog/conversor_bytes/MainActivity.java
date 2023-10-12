@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         final String[] unitsNames = {"", "Bytes", "Kilobytes", "Megabytes", "Terabytes",
                 "Petabytes", "Exabytes", "Zettabytes", "Yottabytes", "Brontobytes", "Geobytes"};
 
-        final ArrayAdapter<String> unitsNames_arrayAdapter = new ArrayAdapter<>(MainActivity.this,
-                                            android.R.layout.simple_list_item_1, unitsNames);
+        final ArrayAdapter<String> unitsNames_arrayAdapter = new ArrayAdapter<>(
+                MainActivity.this, android.R.layout.simple_list_item_1, unitsNames);
 
         spinnerUnitFrom.setAdapter(unitsNames_arrayAdapter);
         spinnerUnitTo.setAdapter(unitsNames_arrayAdapter);
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void doTheConvertion(){
+    private void doTheConvertion() {
         final double[] conversionFactors = {0, // to match with spinner positions
                 1.0, // Bytes to Bytes
                 Math.pow(2, 10), // Kilobytes to Bytes
