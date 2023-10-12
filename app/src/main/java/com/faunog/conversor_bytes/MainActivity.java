@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -33,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillTheSpinnersWithMetrics() {
-        final String[] unitsNames = {"Bytes", "Kilobytes", "Megabytes", "Terabytes",
+        final String[] unitsNames = {"", "Bytes", "Kilobytes", "Megabytes", "Terabytes",
                 "Petabytes", "Exabytes", "Zettabytes", "Yottabytes", "Brontobytes", "Geobytes"};
 
-        ArrayAdapter<String> unitsNames_arrayAdapter = new ArrayAdapter<>(MainActivity.this,
+        final ArrayAdapter<String> unitsNames_arrayAdapter = new ArrayAdapter<>(MainActivity.this,
                                             android.R.layout.simple_list_item_1, unitsNames);
 
         spinnerUnitFrom.setAdapter(unitsNames_arrayAdapter);
@@ -44,12 +45,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void applyListenersToButtons() {
-        buttonConvert.setOnClickListener((v) -> doTheMagicConversion());
+        buttonConvert.setOnClickListener((v) -> verifyIsPossibleDoTheConvertion());
         buttonInvert.setOnClickListener((v) -> invertMetrics());
     }
 
-    private void doTheMagicConversion() {
-        final double[] conversionFactors = {1.0, // Bytes to Bytes
+    private void verifyIsPossibleDoTheConvertion() {
+        numberUnitFrom = spinnerUnitFrom.getSelectedItemPosition();
+        numberUnitTo = spinnerUnitTo.getSelectedItemPosition();
+        final boolean unitsGreaterThanZero = numberUnitFrom > 0 && numberUnitTo > 0;
+
+        valueFromUser = editTextNumber.getText().toString();
+        final boolean valueFromUserIsValid = valueFromUser.length() > 0;
+
+        if (unitsGreaterThanZero && valueFromUserIsValid) {
+            doTheConvertion();
+        } else {
+            final String message = (unitsGreaterThanZero)
+                    ? "Inserte valor a convertir" : "Elige una medida valida";
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void doTheConvertion(){
+        final double[] conversionFactors = {0, // to match with spinner positions
+                1.0, // Bytes to Bytes
                 Math.pow(2, 10), // Kilobytes to Bytes
                 Math.pow(2, 20), // Megabytes to Bytes
                 Math.pow(2, 30), // Terabytes to Bytes
@@ -60,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 Math.pow(2, 80), // Brontobytes to Bytes
                 Math.pow(2, 90)  // Geobytes to Bytes
         };
-        final String valueFromUser = editTextNumber.getText().toString();
-        final int numberUnitFrom = spinnerUnitFrom.getSelectedItemPosition();
-        final int numberUnitTo = spinnerUnitTo.getSelectedItemPosition();
 
         final double valueToConvert = Double.parseDouble(valueFromUser);
 
@@ -78,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 ? new DecimalFormat("0.##E0").format(valueConverted)
                 : Double.toString(valueConverted);
     }
-    
+
     private static boolean hasMoreTwoDecimals(double numero) {
         String numeroStr = Double.toString(numero);
         int puntoIndex = numeroStr.indexOf(".");
@@ -95,12 +111,13 @@ public class MainActivity extends AppCompatActivity {
         final int positionSpinnerUnitFrom = spinnerUnitFrom.getSelectedItemPosition();
         spinnerUnitFrom.setSelection(spinnerUnitTo.getSelectedItemPosition());
         spinnerUnitTo.setSelection(positionSpinnerUnitFrom);
-        doTheMagicConversion();
+        verifyIsPossibleDoTheConvertion();
     }
 
     private Spinner spinnerUnitFrom, spinnerUnitTo;
     private EditText editTextNumber;
     private TextView viewTextResult;
     private Button buttonConvert, buttonInvert;
-
+    private int numberUnitFrom, numberUnitTo;
+    private String valueFromUser;
 }
