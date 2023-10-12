@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         connectVariableWithElements();
         fillTheSpinnersWithMetrics();
         buttonConvert.setOnClickListener((v) -> doTheMagicConversion());
+        buttonInvert.setOnClickListener((v) -> invertMetrics());
     }
 
     private void connectVariableWithElements() {
@@ -66,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
         viewTextResult.setText(String.valueOf(valueConverted));
     }
 
+    private void invertMetrics(){
+        final int positionSpinnerUnitFrom = spinnerUnitFrom.getSelectedItemPosition();
+        spinnerUnitFrom.setSelection(spinnerUnitTo.getSelectedItemPosition());
+        spinnerUnitTo.setSelection(positionSpinnerUnitFrom);
+        doTheMagicConversion();
+    }
 
     private Spinner spinnerUnitFrom, spinnerUnitTo;
     private EditText editTextNumber;
